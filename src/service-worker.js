@@ -4,8 +4,8 @@ self.addEventListener('push', (event) => {
 
         const title = data.title;
         const options = {
-            body: data.body,
-            icon: data.icon || 'https://pbs.twimg.com/profile_images/717346718870859776/vsyH7GEi.jpg',
+            body: data.body,  
+            icon: data.icon,
             tag: data.tag || 'default',
             data: data.url,
         };

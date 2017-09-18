@@ -6,6 +6,17 @@ const ERROR = 'error';
 const SUBSCRIBED = 'subscribed';
 const UNSUBSCRIBED = 'unsubscribed';
 
+import * as firebase from "firebase";
+ var config = {
+    apiKey: "AIzaSyC42D0LlbGyHtgYZ6ur8Q6y3ddn27Lcogs",
+    authDomain: "firstproject-981ac.firebaseapp.com",
+    databaseURL: "https://firstproject-981ac.firebaseio.com",
+    projectId: "firstproject-981ac",
+    storageBucket: "firstproject-981ac.appspot.com",
+    messagingSenderId: "988462700489"
+  };
+  firebase.initializeApp(config);
+
 function buildApplicationServerKey() {
     const base64 = 'BE8PyI95I_jBIfb_LTS_nkUJnOwjLP2zAaGBSFEi3jmFJ3l5ox7-NtNqrVuyPL4Qmt4UxDI-YgwYI1sEMIpoU90=';
     const rfc4648 = base64.replace(/-/g, '+').replace(/_/g, '/');
@@ -15,7 +26,11 @@ function buildApplicationServerKey() {
 
 function sendSubscriptionToServer(subscription) {
     // This is where you'd update the subscription on the server.
-    document.querySelector('.js-subscription').innerHTML = JSON.stringify(subscription.toJSON());
+   document.querySelector('.js-subscription').innerHTML = JSON.stringify(subscription.toJSON());
+   var data =subscription.toJSON();
+
+  var newPushKey = firebase.database().ref().child('pushs').push().key;
+  firebase.database().ref('pushs/' + newPushKey).set(data);
 }
 
 function removeSubscriptionFromServer(subscription) {
